@@ -20,31 +20,38 @@ public class Main {
         BackPropagation BP = new BackPropagation(3, 1, 3, 4, 0.1);
 
         int times = 0;
-        int max_num = NonlinearFunc.getStudyMaxNum();
+        int errorNum = 0;
+        int maxNum = NonlinearFunc.getStudyMaxNum();
 
         boolean success = false;
-        while(!success && times < 10000) {
+        while(!success && times < 100000) {
             times ++;
 
-            success = true;
-            for(int k = 1;k < max_num - 1;k ++) {
+            errorNum = 0;
+            for(int k = 1;k < maxNum - 1;k ++) {
                 BP.study(Arrays.asList(_y[k], _y[k - 1], NonlinearFunc.u(k)), Arrays.asList(_y[k + 1]));
                 double error = BP.getError();
-                if(error > Math.pow(10, -6)) {
-                    success = false;
+                if(error > Math.pow(10, -5)) {
+                    errorNum ++;
                 }
+            }
+
+            if((double)errorNum/maxNum > 0.01) {
+                success = false;
+            } else {
+                success = true;
             }
 
             System.out.println("times = " + times);
         }
 
         y[0] = y[1] = 0;
-        for(int k = 1;k < max_num - 1;k ++) {
+        for(int k = 1;k < maxNum - 1;k ++) {
             List<Double> predictList = BP.predict(Arrays.asList(_y[k], _y[k - 1], NonlinearFunc.u(k)));
             y[k + 1] = predictList.get(0);
         }
 
-        OutputData.output("NonlinearFunc.txt", _y, max_num);
-        OutputData.output("NN.txt", y, max_num);
+        OutputData.output("NonlinearFunc.txt", _y, maxNum);
+        OutputData.output("NN.txt", y, maxNum);
     }
 }
