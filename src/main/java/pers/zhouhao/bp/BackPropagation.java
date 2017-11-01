@@ -3,6 +3,7 @@ package pers.zhouhao.bp;
 import lombok.Getter;
 import pers.zhouhao.random.NormalDistribution;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ import static pers.zhouhao.bp.ErrorInfo.ErrorCode.IS_OK;
 @Getter
 public class BackPropagation {
 
-    private final double c;
+    private final double c;                 //学习率
 
     private int inputNodes = 1;
     private int outputNodes = 1;
@@ -126,13 +127,13 @@ public class BackPropagation {
     }
 
     private double ActivationFunc(double U) {
-        return sigmod(U);
+        return 1 * H(U);
         //return ReLu(U);
         //return tanh(U);
     }
 
     private double ActivationFunc_derivate(double U) {
-        return sigmod_derivate(sigmod(U));
+        return H_derivate(U);
         //return ReLu_derivate(U);
         //return tanh_derivate(U);
     }
@@ -160,7 +161,7 @@ public class BackPropagation {
         return (1 - tanh_old(U) * tanh_old(U))/2;
     }
 
-    private double sigmod(double U) {
+    private double sigmoid(double U) {
         double res = 1 / (1 + Math.exp(-U));
 //        if(res > 0.999) return 0.999;
 //        else if(res < 0.0001) return 0.0001;
@@ -169,8 +170,16 @@ public class BackPropagation {
         //return 1 / (1 + Math.exp(-U));
     }
 
-    private double sigmod_derivate(double sigmod_U) {
-        return (sigmod_U - sigmod_U * sigmod_U) * Math.exp(2);
+    private double sigmoid_derivate(double sigmod_U) {
+        return sigmod_U - sigmod_U * sigmod_U;
+    }
+
+    private double H(double U) {
+        return (1 - Math.exp(- U)) / (1 + Math.exp(- U));
+    }
+
+    private double H_derivate(double U) {
+        return 2 * Math.exp(- U) / Math.pow(1 + Math.exp(- U), 2);
     }
 
     public double getError() {
@@ -209,22 +218,34 @@ public class BackPropagation {
         }
     }
 
-    public int predict(double x, double y) {
+    private ErrorInfo initPredict(List<Double> inputLayerValue) {
 
-        inputLayer.get(0).setX(x);
-        inputLayer.get(1).setX(y);
-
-        forward();
-
-        double max = -100;
-        int pred = -1;
-        for(int i = 0;i < outputNodes;i ++) {
-            if(max < outputLayer.get(i).getX()) {
-                max = outputLayer.get(i).getX();
-                pred = i + 1;
+        ErrorInfo errorInfo = new ErrorInfo();
+        if(inputLayerValue.size() != inputNodes) {
+            errorInfo.setCode(INIT_STUDY_INPUTNODE_NUM_ERROR);
+        } else {
+            for(int i = 0;i < inputNodes;i ++) {
+                inputLayer.get(i).setX(inputLayerValue.get(i));
             }
         }
-        return pred;
+
+        return errorInfo;
+    }
+
+    public List<Double> predict(List<Double> inputLayerValue) {
+
+        ErrorInfo info = initPredict(inputLayerValue);
+        if(info.getCode() != IS_OK) {
+            System.out.println(info.getInfo());
+            return null;
+        } else {
+            forward();
+            List<Double> outputLayerValue = new LinkedList<>();
+            for(int i = 0;i < outputNodes;i ++) {
+                outputLayerValue.add(outputLayer.get(i).getX());
+            }
+            return outputLayerValue;
+        }
     }
 
     private void forward() {
