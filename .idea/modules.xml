@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-Algorithm.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-Algorithm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-Algorithm_main.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-Algorithm_main.iml" group="BP-Algorithm" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-Algorithm_test.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-Algorithm_test.iml" group="BP-Algorithm" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem_main.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem_main.iml" group="BP-IdentificationOfNonlinearSystem" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem_test.iml" filepath="$PROJECT_DIR$/.idea/modules/BP-IdentificationOfNonlinearSystem_test.iml" group="BP-IdentificationOfNonlinearSystem" />
     </modules>
   </component>
 </project>

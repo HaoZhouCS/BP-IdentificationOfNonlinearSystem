@@ -1,4 +1,4 @@
-group 'BP-Algorithm'
+group 'BP-IdentificationOfNonlinearSystem'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

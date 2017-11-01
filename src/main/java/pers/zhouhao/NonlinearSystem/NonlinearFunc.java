@@ -12,7 +12,7 @@ public class NonlinearFunc {
     static {
         _y[0] = _y[1] = 0;
         for(int k = 1;k < MAX_NUM - 1;k ++) {
-            _y[k + 1] = 0.3 * _y[k] + 0.6 * _y[k - 1] + f(u(k));
+            _y[k + 1] = 0.3 * _y[k] + 0.6 * _y[k - 1] + 0.1 * f(u(k));
         }
     }
 

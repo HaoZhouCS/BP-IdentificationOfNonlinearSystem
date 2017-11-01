@@ -30,7 +30,7 @@ public class Main {
             for(int k = 1;k < max_num - 1;k ++) {
                 BP.study(Arrays.asList(_y[k], _y[k - 1], NonlinearFunc.u(k)), Arrays.asList(_y[k + 1]));
                 double error = BP.getError();
-                if(error > Math.pow(10, -2)) {
+                if(error > Math.pow(10, -6)) {
                     success = false;
                 }
             }
@@ -44,7 +44,7 @@ public class Main {
             y[k + 1] = predictList.get(0);
         }
 
-        OutputData.output("NonliearFunc.txt", _y, max_num);
+        OutputData.output("NonlinearFunc.txt", _y, max_num);
         OutputData.output("NN.txt", y, max_num);
     }
 }
