@@ -24,14 +24,14 @@ public class Main {
         int maxNum = NonlinearFunc.getStudyMaxNum();
 
         boolean success = false;
-        while(!success && times < 100000) {
+        while(!success && times < 10000) {
             times ++;
 
             errorNum = 0;
             for(int k = 1;k < maxNum - 1;k ++) {
                 BP.study(Arrays.asList(_y[k], _y[k - 1], NonlinearFunc.u(k)), Arrays.asList(_y[k + 1]));
                 double error = BP.getError();
-                if(error > Math.pow(10, -5)) {
+                if(error > Math.pow(10, -4)) {
                     errorNum ++;
                 }
             }
@@ -52,6 +52,6 @@ public class Main {
         }
 
         OutputData.output("NonlinearFunc.txt", _y, maxNum);
-        OutputData.output("NN.txt", y, maxNum);
+        OutputData.output("NN_study_layer_3.txt", y, maxNum);
     }
 }

@@ -54,3 +54,4 @@ proguard/
 .idea/
 *.iml
 
+*.pdf
